@@ -51,32 +51,125 @@ public class CategoriaDAO implements CrudSimpleInterface<Categoria>{
 
     @Override
     public boolean insertar(Categoria obj) {
-        
+        resp=false;
+        try {
+            ps=CON.conectar().prepareStatement("INSERT INTO categoria(nombre,descripcion,activo) VALUES(7,7,1)");
+            ps.setString(1,obj.getNombre());
+            ps.setString(2,obj.getDescripcion());
+            if (ps.executeUpdate()>0) {
+                resp=true;                
+            }
+            ps.close();
+        } catch (SQLException e) {
+            JOptionPane.showInternalMessageDialog(null, e.getMessage());
+        } finally {
+            ps=null;
+            CON.desconectar();
+        }
+        return resp;
     }
 
     @Override
     public boolean actualizar(Categoria obj) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+         resp=false;
+        try {
+            ps=CON.conectar().prepareStatement("UPDATE categoria SET nombre=?,descripcion=? WHERE id=?");
+            ps.setString(1,obj.getNombre());
+            ps.setString(2,obj.getDescripcion());
+            ps.setInt(3, obj.getId());
+            if (ps.executeUpdate()>0) {
+                resp=true;                
+            }
+            ps.close();
+        } catch (SQLException e) {
+            JOptionPane.showInternalMessageDialog(null, e.getMessage());
+        } finally {
+            ps=null;
+            CON.desconectar();
+        }
+        return resp;
     }
 
     @Override
     public boolean desactivar(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+         resp=false;
+        try {
+            ps=CON.conectar().prepareStatement("UPDATE categoria SET activo=0 WHERE id=?");
+            ps.setInt(1,id);
+            if (ps.executeUpdate()>0) {
+                resp=true;                
+            }
+            ps.close();
+        } catch (SQLException e) {
+            JOptionPane.showInternalMessageDialog(null, e.getMessage());
+        } finally {
+            ps=null;
+            CON.desconectar();
+        }
+        return resp;
     }
 
     @Override
     public boolean activar(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        resp=false;
+        try {
+            ps=CON.conectar().prepareStatement("UPDATE categoria SET activo=1 WHERE id=?");
+            ps.setInt(1,id);
+            if (ps.executeUpdate()>0) {
+                resp=true;                
+            }
+            ps.close();
+        } catch (SQLException e) {
+            JOptionPane.showInternalMessageDialog(null, e.getMessage());
+        } finally {
+            ps=null;
+            CON.desconectar();
+        }
+        return resp;
     }
 
     @Override
     public int total() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        int totalRegistro=0;
+        try {
+            ps=CON.conectar().prepareStatement("SELECT COUNT (id) FROM categoria");
+            rs=ps.executeQuery();
+            while (rs.next()) {                
+                totalRegistro=rs.getInt("COUNT(id)");
+            }
+            ps.close();
+            rs.close();
+        } catch (SQLException e) {
+            JOptionPane.showInternalMessageDialog(null, e.getMessage());
+        } finally {
+            ps=null;
+            ps=null;
+            CON.desconectar();
+        }
+        return totalRegistro;
     }
 
     @Override
     public boolean existe(String texto) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+         resp=false;
+        try {
+            ps=CON.conectar().prepareStatement("SELECT nombre FROM categoria WHERE nombre=?");
+            ps.setString(1, texto);
+            rs=ps.executeQuery();
+            if (rs.getRow()>0) {
+                resp=true;
+            }
+            ps.close();
+            rs.close();
+        } catch (SQLException e) {
+            JOptionPane.showInternalMessageDialog(null, e.getMessage());
+        } finally {
+            ps=null;
+            ps=null;
+            CON.desconectar();
+        }
+        return resp;
+        
     }
     
 }
