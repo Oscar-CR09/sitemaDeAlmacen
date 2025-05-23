@@ -4,6 +4,7 @@
  */
 package presentacion;
 import javax.swing.JOptionPane;
+import javax.swing.table.TableRowSorter;
 import negocio.CategoriaControl;
 /**
  *
@@ -26,6 +27,8 @@ public class frmCategoria extends javax.swing.JInternalFrame {
     }
     private void listar(String texto){
         tablaListado.setModel(this.CONTROL.listar(texto));
+        TableRowSorter orden = new TableRowSorter(tablaListado.getModel());
+        tablaListado.setRowSorter(orden);
         lblTotalRegistros.setText("Mostrando " + this.CONTROL.totalMostrados() + " de un total de " + this.CONTROL.total() + " registros");
         
     }
@@ -369,24 +372,46 @@ public class frmCategoria extends javax.swing.JInternalFrame {
 
     private void btnDesactivarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDesactivarActionPerformed
         // TODO add your handling code here:}
-        String id = String.valueOf(tablaListado.getValueAt(tablaListado.getSelectedRow(), 0));
-        String nombre = String.valueOf(tablaListado.getValueAt(tablaListado.getSelectedRow(), 1));
-        
-        if (JOptionPane.showConfirmDialog(this, "Deseas desactivar el registro " + nombre+ " ?","Desactivar", JOptionPane.YES_NO_OPTION)==0) {
-            String resp=this.CONTROL.desactivar(Integer.parseInt(id));
-            if (resp.equals("OK")) {
-                this.mensajeOk("Registro desactivado");
-                
-            } else {
-                this.mensajeError(resp);
+        if (tablaListado.getSelectedRowCount()==1) {
+            String id = String.valueOf(tablaListado.getValueAt(tablaListado.getSelectedRow(), 0));
+            String nombre = String.valueOf(tablaListado.getValueAt(tablaListado.getSelectedRow(), 1));
+
+            if (JOptionPane.showConfirmDialog(this, "Deseas desactivar el registro " + nombre+ " ?","Desactivar", JOptionPane.YES_NO_OPTION)==0) {
+                String resp=this.CONTROL.desactivar(Integer.parseInt(id));
+                if (resp.equals("OK")) {
+                    this.mensajeOk("Registro desactivado");
+                    this.listar("");
+
+                } else {
+                    this.mensajeError(resp);
+                }
+            } 
+        }else {
+                this.mensajeError("Seleccione 1 registro a desactivar.");
             }
-        } else {
-            this.mensajeError("Seleccione 1 registro a editar.");
-        }
+        
     }//GEN-LAST:event_btnDesactivarActionPerformed
 
     private void btnActivarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActivarActionPerformed
         // TODO add your handling code here:
+        if (tablaListado.getSelectedRowCount()==1) {
+            String id = String.valueOf(tablaListado.getValueAt(tablaListado.getSelectedRow(), 0));
+            String nombre = String.valueOf(tablaListado.getValueAt(tablaListado.getSelectedRow(), 1));
+
+            if (JOptionPane.showConfirmDialog(this, "Deseas Activar el registro " + nombre+ " ?","Activar", JOptionPane.YES_NO_OPTION)==0) {
+                String resp=this.CONTROL.activar(Integer.parseInt(id));
+                if (resp.equals("OK")) {
+                    this.mensajeOk("Registro Activado");
+                    this.listar("");
+
+                } else {
+                    this.mensajeError(resp);
+                }
+            } 
+        }else {
+                this.mensajeError("Seleccione 1 registro Activado.");
+            }
+            
     }//GEN-LAST:event_btnActivarActionPerformed
 
 
