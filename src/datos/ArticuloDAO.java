@@ -7,7 +7,6 @@ package datos;
 import database.Conexion;
 import datos.interfaces.CrudPaginadoInterface;
 import entidades.Articulo;
-import entidades.Categoria;
 import java.util.List;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -56,9 +55,13 @@ public class ArticuloDAO implements CrudPaginadoInterface<Articulo>{
     public boolean insertar(Articulo obj) {
         resp=false;
         try {
-            ps=CON.conectar().prepareStatement("INSERT INTO categoria(nombre,descripcion,activo) VALUES(?,?,1)");
-            ps.setString(1,obj.getNombre());
-            ps.setString(2,obj.getDescripcion());
+            ps=CON.conectar().prepareStatement("INSERT INTO articulo(categoria_id,codigo,nombre,precio_venta,stock,descripcion,images,activo) VALUES(?,?,?,?,?,?,?,?,1)");
+            ps.setInt(1,obj.getCategoriaId());
+            ps.setString(2,obj.getNombre());
+            ps.setDouble(3, obj.getPrecioVenta());
+            ps .setInt(5, obj.getStock());
+            ps.setString(6,obj.getDescripcion());
+            ps.setString(7, obj.getImagen());
             if (ps.executeUpdate()>0) {
                 resp=true;                
             }
@@ -76,10 +79,13 @@ public class ArticuloDAO implements CrudPaginadoInterface<Articulo>{
     public boolean actualizar(Articulo obj) {
          resp=false;
         try {
-            ps=CON.conectar().prepareStatement("UPDATE categoria SET nombre=?,descripcion=? WHERE id=?");
-            ps.setString(1,obj.getNombre());
-            ps.setString(2,obj.getDescripcion());
-            ps.setInt(3, obj.getId());
+            ps.setInt(1,obj.getCategoriaId());
+            ps.setString(2,obj.getNombre());
+            ps.setDouble(3, obj.getPrecioVenta());
+            ps .setInt(5, obj.getStock());
+            ps.setString(6,obj.getDescripcion());
+            ps.setString(7, obj.getImagen());
+            ps.setInt(8, obj.getId());
             if (ps.executeUpdate()>0) {
                 resp=true;                
             }
@@ -97,7 +103,7 @@ public class ArticuloDAO implements CrudPaginadoInterface<Articulo>{
     public boolean desactivar(int id) {
          resp=false;
         try {
-            ps=CON.conectar().prepareStatement("UPDATE categoria SET activo=0 WHERE id=?");
+            ps=CON.conectar().prepareStatement("UPDATE articulo SET activo=0 WHERE id=?");
             ps.setInt(1,id);
             if (ps.executeUpdate()>0) {
                 resp=true;                
@@ -116,7 +122,7 @@ public class ArticuloDAO implements CrudPaginadoInterface<Articulo>{
     public boolean activar(int id) {
         resp=false;
         try {
-            ps=CON.conectar().prepareStatement("UPDATE categoria SET activo=1 WHERE id=?");
+            ps=CON.conectar().prepareStatement("UPDATE articulo SET activo=1 WHERE id=?");
             ps.setInt(1,id);
             if (ps.executeUpdate()>0) {
                 resp=true;                
@@ -135,7 +141,7 @@ public class ArticuloDAO implements CrudPaginadoInterface<Articulo>{
     public int total() {
         int totalRegistro=0;
         try {
-            ps=CON.conectar().prepareStatement("SELECT COUNT(id) AS total_registros FROM categoria"); //"SELECT  COUNT (id) FROM categoria"
+            ps=CON.conectar().prepareStatement("SELECT COUNT(id) AS total_registros FROM articulo"); //"SELECT  COUNT (id) FROM categoria"
             rs=ps.executeQuery();
             while (rs.next()) {                
                 totalRegistro=rs.getInt("total_registros");
@@ -156,7 +162,7 @@ public class ArticuloDAO implements CrudPaginadoInterface<Articulo>{
     public boolean existe(String texto) {
          resp=false;
         try {
-            ps=CON.conectar().prepareStatement("SELECT nombre FROM categoria WHERE nombre=?");
+            ps=CON.conectar().prepareStatement("SELECT nombre FROM articulo WHERE nombre=?");
             ps.setString(1, texto);
             rs=ps.executeQuery();
             if (rs.getRow()>0) {
