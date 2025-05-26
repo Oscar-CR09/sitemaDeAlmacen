@@ -32,9 +32,9 @@ public class ArticuloDAO implements CrudPaginadoInterface<Articulo>{
         try {
             ps=CON.conectar().prepareStatement("Select a.id, a.categoria_id, c.nombre as categoria_nombre, a.codigo,a.nombre, a.precio_venta, a.stock, a.descripcion, a.images, a.activo FROM articulo a inner join categoria c ON a.categoria_id=c.id  WHERE a.nombre LIKE ? ORDER BY a.id ASC LIMIT ?, ?");
             ps.setString(1, "%"+texto+"%");
-            rs=ps.executeQuery();
             ps.setInt(2, (numPagina-1)*totalPorPagina);
             ps.setInt(3, totalPorPagina);
+            rs=ps.executeQuery();
             while (rs.next()) {                
                 registros.add(new Articulo(rs.getInt(1),rs.getInt(2),rs.getString(3),rs.getString(4),rs.getString(5),rs.getDouble(6),rs.getInt(7),rs.getString(8),rs.getString(9),rs.getBoolean(10)));
                 
@@ -55,10 +55,11 @@ public class ArticuloDAO implements CrudPaginadoInterface<Articulo>{
     public boolean insertar(Articulo obj) {
         resp=false;
         try {
-            ps=CON.conectar().prepareStatement("INSERT INTO articulo(categoria_id,codigo,nombre,precio_venta,stock,descripcion,images,activo) VALUES(?,?,?,?,?,?,?,?,1)");
+            ps=CON.conectar().prepareStatement("INSERT INTO articulo(categoria_id,codigo,nombre,precio_venta,stock,descripcion,images,activo) VALUES(?,?,?,?,?,?,?,1)");
             ps.setInt(1,obj.getCategoriaId());
-            ps.setString(2,obj.getNombre());
-            ps.setDouble(3, obj.getPrecioVenta());
+            ps.setString(2, obj.getCodigo());
+            ps.setString(3,obj.getNombre());
+            ps.setDouble(4, obj.getPrecioVenta());
             ps .setInt(5, obj.getStock());
             ps.setString(6,obj.getDescripcion());
             ps.setString(7, obj.getImagen());
@@ -79,9 +80,11 @@ public class ArticuloDAO implements CrudPaginadoInterface<Articulo>{
     public boolean actualizar(Articulo obj) {
          resp=false;
         try {
+            ps=CON.conectar().prepareStatement("UPDATE articulo SET categoria_id=?,codigo=?,nombre=?,precio_venta=?,stock=?,descripcion=?,images=? WHERE id=? ");
             ps.setInt(1,obj.getCategoriaId());
-            ps.setString(2,obj.getNombre());
-            ps.setDouble(3, obj.getPrecioVenta());
+            ps.setString(2, obj.getCodigo());
+            ps.setString(3,obj.getNombre());
+            ps.setDouble(4, obj.getPrecioVenta());
             ps .setInt(5, obj.getStock());
             ps.setString(6,obj.getDescripcion());
             ps.setString(7, obj.getImagen());
