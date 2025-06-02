@@ -19,12 +19,12 @@ public class Usuario {
     private String telefono;
     private String email;
     private String clave;
-    private String activo;
+    private boolean activo;
 
     public Usuario() {
     }
 
-    public Usuario(int id, int rolId, String rolNombre, String nombre, String tipoDocumento, String numDocumento, String direccion, String telefono, String email, String clave, String activo) {
+    public Usuario(int id, int rolId, String rolNombre, String nombre, String tipoDocumento, String numDocumento, String direccion, String telefono, String email, String clave, boolean activo) {
         this.id = id;
         this.rolId = rolId;
         this.rolNombre = rolNombre;
@@ -118,11 +118,11 @@ public class Usuario {
         this.clave = clave;
     }
 
-    public String getActivo() {
+    public Boolean getActivo() {
         return activo;
     }
 
-    public void setActivo(String activo) {
+    public void setActivo(Boolean activo) {
         this.activo = activo;
     }
     
