@@ -125,6 +125,10 @@ public class Usuario {
     public void setActivo(Boolean activo) {
         this.activo = activo;
     }
+
+    public boolean isActivo() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
     
     
 }
