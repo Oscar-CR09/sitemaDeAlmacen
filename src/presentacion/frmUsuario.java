@@ -512,17 +512,17 @@ public class frmUsuario extends javax.swing.JInternalFrame {
             return;
         }
         if (txtNumDocumento.getText().length()>20) {
-            JOptionPane.showMessageDialog(this, "Debes ingresar un numero de documento no mayor a 70 caracteres.", "Sistema", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Debes ingresar un numero de documento no mayor a 20 caracteres.", "Sistema", JOptionPane.WARNING_MESSAGE);
             txtNumDocumento.requestFocus();
             return;
         }
          if (txtDireccion.getText().length()>70) {
-            JOptionPane.showMessageDialog(this, "Debes ingresar una derección.", "Sistema", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Debes ingresar una derección no mayor de 70 caracteres.", "Sistema", JOptionPane.WARNING_MESSAGE);
             txtDireccion.requestFocus();
             return;
         }
-           if (txtTelefono.getText().length()>20) {
-            JOptionPane.showMessageDialog(this, "Debes ingresar un teléfono no mayora 15 caracteres.", "Sistema", JOptionPane.WARNING_MESSAGE);
+           if (txtTelefono.getText().length()>15 ) {
+            JOptionPane.showMessageDialog(this, "Debes ingresar un teléfono no mayor a 15 caracteres.", "Sistema", JOptionPane.WARNING_MESSAGE);
             txtTelefono.requestFocus();
             return;
         }
@@ -547,7 +547,7 @@ public class frmUsuario extends javax.swing.JInternalFrame {
         } else {
             //guardar
             Rol seleccionado = (Rol)cboRol.getSelectedItem();
-            resp=this.CONTROL.insertar(seleccionado.getId(),txtNombre.getText() ,(String)cboTipoDocumento.getSelectedItem(),txtNumDocumento.getText(),txtDireccion.getText(),txtTelefono.getText(),txtEmail.getText(),txtClave.getText());
+            resp=this.CONTROL.insertar(seleccionado.getId(),txtNombre.getText(),(String)cboTipoDocumento.getSelectedItem(),txtNumDocumento.getText(),txtDireccion.getText(),txtTelefono.getText(),txtEmail.getText(),txtClave.getText());
             resp="OK"; 
             if (resp.equals("OK")) {
                 this.mensajeOk("Registrado correctamente");
