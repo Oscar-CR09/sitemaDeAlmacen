@@ -10,7 +10,7 @@ import negocio.PersonaControl;
  *
  * @author oscar
  */
-public class frmProveedor extends javax.swing.JInternalFrame {
+public class frmCliente extends javax.swing.JInternalFrame {
     
     private final PersonaControl CONTROL;
     private String accion;
@@ -25,7 +25,7 @@ public class frmProveedor extends javax.swing.JInternalFrame {
     /**
      * Creates new form frmCategoria
      */
-    public frmProveedor() {
+    public frmCliente() {
         initComponents();
         this.CONTROL=new PersonaControl();
         this.paginar();

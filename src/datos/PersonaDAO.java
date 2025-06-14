@@ -49,6 +49,31 @@ public class PersonaDAO implements CrudPaginadoInterface<Persona>{
         }
         return registros;
     }
+    
+        public List<Persona> listarTipo(String texto, int totalPorPagina, int numPagina, String tipoPersona) {
+        List<Persona> registros=new ArrayList();
+        try {
+            ps=CON.conectar().prepareStatement("Select p.id, p.tipo_persona, p.nombre, p.tipo_documento, p.num_documento, p.direccion, p.telefono, p.email, p.activo FROM persona p WHERE p.nombre LIKE ?  AND tipoPersona=? ORDER BY p.id ASC LIMIT ?, ?");
+            ps.setString(1, "%"+texto+"%");
+            ps.setString(2, tipoPersona);
+            ps.setInt(3, (numPagina-1)*totalPorPagina);
+            ps.setInt(4, totalPorPagina);
+            rs=ps.executeQuery();
+            while (rs.next()) {                
+                registros.add(new Persona(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5),rs.getString(6),rs.getString(7),rs.getString(8),rs.getBoolean(9)));     
+            }
+            ps.close();
+            rs.close();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }finally{
+            ps=null;
+            rs=null;
+            CON.desconectar();
+        }
+        return registros;
+    }
+
 
     @Override
     public boolean insertar(Persona obj) {

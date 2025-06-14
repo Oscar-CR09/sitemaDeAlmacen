@@ -58,6 +58,39 @@ public class PersonaControl {
         return this.modeloTabla;
     }
     
+      public DefaultTableModel  listarTipo(String texto,int totalPorPagina,int numPagina,String tipoPersona){
+        List<Persona> lista=new ArrayList();
+        lista.addAll(DATOS.listarTipo(texto,totalPorPagina,numPagina,tipoPersona));
+        
+        String[ ] titulos={"Id","Tipo Persona","Persona","Documento","# Documento","Dirección","Teléfono","Email","Estado"};
+        this.modeloTabla = new DefaultTableModel(null,titulos);
+        
+        String estado;
+        String[] registro = new String[9];
+        
+        this.registrosMostrados=0;
+        for (Persona item:lista) {
+            if (item.isActivo()) {
+                estado="Activo";
+            } else {
+                estado="Inactivo";
+            }
+            registro[0]=Integer.toString(item.getId());
+            registro[1]=item.getTipoPersona();
+            registro[2]=item.getNombre();
+            registro[3]=item.getTipoDocumento();
+            registro[4]=item.getNumDocumento();
+            registro[5]=item.getDireccion();
+            registro[6]=item.getTelefono();
+            registro[7]=item.getEmail();
+            registro[8]=estado;
+            this.modeloTabla.addRow(registro);
+            this.registrosMostrados = this.registrosMostrados+1;
+        }
+        return this.modeloTabla;
+    }
+     
+    
     public String insertar(String tipoPersona, String nombre, String tipoDocumento, String numDocumento, String direccion, String telefono, String email ){
         if (DATOS.existe(nombre)) {
             return "El registro ya existe.";
