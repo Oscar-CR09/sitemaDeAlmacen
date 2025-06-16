@@ -66,6 +66,25 @@ public class UsuarioControl {
         return this.modeloTabla;
     }
     
+    public String login(String email, String clave){
+        String resp="0";
+        Usuario usu=this.DATOS.login(email,this.encriptar(clave) );
+        if (usu!=null) {
+            if (usu.isActivo()) {
+                Variables.usuarioId=usu.getId();
+                Variables.rolId=usu.getRolId();
+                Variables.rolNombre=usu.getRolNombre();
+                Variables.usuarioNombre=usu.getNombre();
+                Variables.usuarioEmail=usu.getEmail();
+                resp="1";
+            }else{
+                resp="2";
+                
+            }
+        }
+        return resp;                
+    }
+    
     public DefaultComboBoxModel seleccionar(){
         DefaultComboBoxModel items =new DefaultComboBoxModel();
         List<Rol> lista =new ArrayList();

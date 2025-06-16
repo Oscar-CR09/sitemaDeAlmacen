@@ -62,9 +62,9 @@ public class frmCliente extends javax.swing.JInternalFrame {
             this.numPagina=Integer.parseInt((String)cboNumeroPaginas.getSelectedItem());
         }
         if (paginar==true) {
-            tablaListado.setModel(this.CONTROL.listarTipo(texto, this.totalPorPagina, this.numPagina,"Proveedor"));
+            tablaListado.setModel(this.CONTROL.listarTipo(texto, this.totalPorPagina, this.numPagina,"Cliente"));
         }else{
-              tablaListado.setModel(this.CONTROL.listarTipo(texto, this.totalPorPagina, 1,"Proveedor"));            
+              tablaListado.setModel(this.CONTROL.listarTipo(texto, this.totalPorPagina, 1,"Cliente"));            
         }
         
         TableRowSorter orden = new TableRowSorter(tablaListado.getModel());
@@ -137,7 +137,7 @@ public class frmCliente extends javax.swing.JInternalFrame {
         setIconifiable(true);
         setMaximizable(true);
         setResizable(true);
-        setTitle("Proveedores");
+        setTitle("Cliente");
 
         tabGeneral.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -477,7 +477,7 @@ public class frmCliente extends javax.swing.JInternalFrame {
         String resp;
         if (this.accion.equals("editar")) {
             //editar
-            resp=this.CONTROL.actualizar(Integer.parseInt(txtId.getText()),"Proveedor",txtNombre.getText(),this.nombreAnt,(String) cboTipoDocumento.getSelectedItem(), txtNumDocumento.getText(),txtDireccion.getText(),txtTelefono.getText(),txtEmail.getText());
+            resp=this.CONTROL.actualizar(Integer.parseInt(txtId.getText()),"Cliente",txtNombre.getText(),this.nombreAnt,(String) cboTipoDocumento.getSelectedItem(), txtNumDocumento.getText(),txtDireccion.getText(),txtTelefono.getText(),txtEmail.getText());
             resp="OK";
             if (resp.equals("OK")) {
                 this.mensajeOk("Actualizado correctamente");
@@ -492,7 +492,7 @@ public class frmCliente extends javax.swing.JInternalFrame {
         
         } else {
             //guardar
-            resp=this.CONTROL.insertar("Proveedor", txtNombre.getText(),(String)cboTipoDocumento.getSelectedItem(),txtNumDocumento.getText(),txtDireccion.getText(),txtTelefono.getText(),txtEmail.getText());
+            resp=this.CONTROL.insertar("Cliente", txtNombre.getText(),(String)cboTipoDocumento.getSelectedItem(),txtNumDocumento.getText(),txtDireccion.getText(),txtTelefono.getText(),txtEmail.getText());
             resp="OK"; 
             if (resp.equals("OK")) {
                 this.mensajeOk("Registrado correctamente");
