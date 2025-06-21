@@ -45,6 +45,23 @@ public class Ingreso {
         this.detalle = detalle;
     }
 
+    public Ingreso(int id, int usuarioId, String usuarioNombre, int personaId, String personaNombre, String tipoComprobante, String serieComprobante, String numComprobante, Date fecha, double impuesto, double total, String estado) {
+        this.id = id;
+        this.usuarioId = usuarioId;
+        this.usuarioNombre = usuarioNombre;
+        this.personaId = personaId;
+        this.personaNombre = personaNombre;
+        this.tipoComprobante = tipoComprobante;
+        this.serieComprobante = serieComprobante;
+        this.numComprobante = numComprobante;
+        this.fecha = fecha;
+        this.impuesto = impuesto;
+        this.total = total;
+        this.estado = estado;
+    }
+    
+    
+
     public int getId() {
         return id;
     }
