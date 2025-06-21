@@ -19,9 +19,39 @@ public class FrmPrincipal extends javax.swing.JFrame {
     public FrmPrincipal() {
         initComponents();
         setExtendedState(MAXIMIZED_BOTH);
-        
+        this.cargarOpcionesMenu();
     }
-
+    private void cargarOpcionesMenu(){
+        if (negocio.Variables.rolNombre.equals("Administrador")) {
+            mnuAlmacen.setEnabled(true);
+            mnuCompras.setEnabled(true);
+            mnuVentas.setEnabled(true);
+            mnuAcceso.setEnabled(true);
+            itemConsultaCompras.setEnabled(true);
+            itemConsultaVentas.setEnabled(true);
+        }else if(negocio.Variables.rolNombre.equals("Almacen")){
+            mnuAlmacen.setEnabled(true);
+            mnuCompras.setEnabled(true);
+            mnuVentas.setEnabled(false);
+            mnuAcceso.setEnabled(false);
+            itemConsultaCompras.setEnabled(true);
+            itemConsultaVentas.setEnabled(false);
+        }else if(negocio.Variables.rolNombre.equals("Ventas")){
+            mnuAlmacen.setEnabled(false);
+            mnuCompras.setEnabled(false);
+            mnuVentas.setEnabled(true);
+            mnuAcceso.setEnabled(false);
+            itemConsultaCompras.setEnabled(false);
+            itemConsultaVentas.setEnabled(true);  
+        }else{
+            mnuAlmacen.setEnabled(false);
+            mnuCompras.setEnabled(false);
+            mnuVentas.setEnabled(false);
+            mnuAcceso.setEnabled(false);
+            itemConsultaCompras.setEnabled(false);
+            itemConsultaVentas.setEnabled(false);
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -53,8 +83,8 @@ public class FrmPrincipal extends javax.swing.JFrame {
         jMenuItem7 = new javax.swing.JMenuItem();
         jMenuItem8 = new javax.swing.JMenuItem();
         mnuConsultas = new javax.swing.JMenu();
-        jMenuItem9 = new javax.swing.JMenuItem();
-        jMenuItem10 = new javax.swing.JMenuItem();
+        itemConsultaCompras = new javax.swing.JMenuItem();
+        itemConsultaVentas = new javax.swing.JMenuItem();
         jMenu6 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -155,18 +185,23 @@ public class FrmPrincipal extends javax.swing.JFrame {
         mnuConsultas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/presentacion/images/consultas.png"))); // NOI18N
         mnuConsultas.setText("Consultas");
 
-        jMenuItem9.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.ALT_DOWN_MASK));
-        jMenuItem9.setText("Consulta Compras");
-        mnuConsultas.add(jMenuItem9);
+        itemConsultaCompras.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.ALT_DOWN_MASK));
+        itemConsultaCompras.setText("Consulta Compras");
+        mnuConsultas.add(itemConsultaCompras);
 
-        jMenuItem10.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.ALT_DOWN_MASK));
-        jMenuItem10.setText("Consulta Ventas");
-        mnuConsultas.add(jMenuItem10);
+        itemConsultaVentas.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.ALT_DOWN_MASK));
+        itemConsultaVentas.setText("Consulta Ventas");
+        mnuConsultas.add(itemConsultaVentas);
 
         menuBar.add(mnuConsultas);
 
         jMenu6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/presentacion/images/salir.png"))); // NOI18N
         jMenu6.setText("Salir");
+        jMenu6.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenu6MouseClicked(evt);
+            }
+        });
         menuBar.add(jMenu6);
 
         setJMenuBar(menuBar);
@@ -232,6 +267,11 @@ public class FrmPrincipal extends javax.swing.JFrame {
         frm.setVisible(true);
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
+    private void jMenu6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu6MouseClicked
+        // TODO add your handling code here:
+        System.exit(0);
+    }//GEN-LAST:event_jMenu6MouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -269,9 +309,10 @@ public class FrmPrincipal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane escritorio;
+    private javax.swing.JMenuItem itemConsultaCompras;
+    private javax.swing.JMenuItem itemConsultaVentas;
     private javax.swing.JMenu jMenu6;
     private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem10;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
@@ -279,7 +320,6 @@ public class FrmPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JMenuItem jMenuItem8;
-    private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JMenu mnuAcceso;
     private javax.swing.JMenu mnuAlmacen;
