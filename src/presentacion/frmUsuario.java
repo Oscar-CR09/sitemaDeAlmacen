@@ -73,7 +73,7 @@ public class frmUsuario extends javax.swing.JInternalFrame {
     }
             //Marca in error de parse int verificar que es lo que lo esta activando 
     private void listar(String texto, boolean paginar){
-        this.totalPorPagina=Integer.parseInt((String)cboTotalPaginas.getSelectedItem());
+        //this.totalPorPagina=Integer.parseInt((String)cboTotalPaginas.getSelectedItem());
         if ((String )cboNumeroPaginas.getSelectedItem()!=null) {
             this.numPagina=Integer.parseInt((String)cboNumeroPaginas.getSelectedItem());
         }

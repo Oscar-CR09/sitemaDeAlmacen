@@ -22,21 +22,21 @@ public class FrmPrincipal extends javax.swing.JFrame {
         this.cargarOpcionesMenu();
     }
     private void cargarOpcionesMenu(){
-        if (negocio.Variables.rolNombre.equals("Administrador")) {
+        if (negocio.Variables.rolNombre!=null && negocio.Variables.rolNombre.equals("Administrador")) {
             mnuAlmacen.setEnabled(true);
             mnuCompras.setEnabled(true);
             mnuVentas.setEnabled(true);
             mnuAcceso.setEnabled(true);
             itemConsultaCompras.setEnabled(true);
             itemConsultaVentas.setEnabled(true);
-        }else if(negocio.Variables.rolNombre.equals("Almacen")){
+        }else if(negocio.Variables.rolNombre!=null &&negocio.Variables.rolNombre.equals("Almacen")){
             mnuAlmacen.setEnabled(true);
             mnuCompras.setEnabled(true);
             mnuVentas.setEnabled(false);
             mnuAcceso.setEnabled(false);
             itemConsultaCompras.setEnabled(true);
             itemConsultaVentas.setEnabled(false);
-        }else if(negocio.Variables.rolNombre.equals("Ventas")){
+        }else if(negocio.Variables.rolNombre!=null &&negocio.Variables.rolNombre.equals("Ventas")){
             mnuAlmacen.setEnabled(false);
             mnuCompras.setEnabled(false);
             mnuVentas.setEnabled(true);
@@ -44,10 +44,10 @@ public class FrmPrincipal extends javax.swing.JFrame {
             itemConsultaCompras.setEnabled(false);
             itemConsultaVentas.setEnabled(true);  
         }else{
-            mnuAlmacen.setEnabled(false);
-            mnuCompras.setEnabled(false);
-            mnuVentas.setEnabled(false);
-            mnuAcceso.setEnabled(false);
+            mnuAlmacen.setEnabled(true);
+            mnuCompras.setEnabled(true);
+            mnuVentas.setEnabled(true);
+            mnuAcceso.setEnabled(true);
             itemConsultaCompras.setEnabled(false);
             itemConsultaVentas.setEnabled(false);
         }

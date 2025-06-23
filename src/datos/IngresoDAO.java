@@ -64,7 +64,8 @@ public class IngresoDAO implements CrudIngresoInterface<Ingreso, DetalleIngreso>
 
     @Override
     public boolean insertar(Ingreso obj) {
-        
+         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    
     }
 
     @Override
