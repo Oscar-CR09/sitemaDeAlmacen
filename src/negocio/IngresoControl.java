@@ -3,17 +3,13 @@
  *   Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package negocio;
-import datos.ArticuloDAO;
-import datos.CategoriaDAO;
 import datos.IngresoDAO;
-import entidades.Articulo;
-import entidades.Categoria;
+import entidades.DetalleIngreso;
 import entidades.Ingreso;
 import java.text.SimpleDateFormat;
 import javax.swing.table.DefaultTableModel;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.DefaultComboBoxModel;
 /**
  *
  * @author oscar
@@ -65,13 +61,27 @@ public class IngresoControl {
         if (DATOS.existe(serieComprobante,numComprobante)) {
             return "El registro ya existe.";
         } else {
-            obj.setCategoriaId(categoriaId);
-            obj.setCodigo(codigo);
-            obj.setNombre(nombre);
-            obj.setPrecioVenta(precioVenta);
-            obj.setStock(stock);
-            obj.setDescripcion(descripcion);
-            obj.setImagen(imagen);
+            obj.setUsuarioId(Variables.usuarioId);
+            obj.setPersonaId(personaId);
+            obj.setTipoComprobante(tipoComprobante);
+            obj.setSerieComprobante(serieComprobante);
+            obj.setNumComprobante(numComprobante);
+            obj.setImpuesto(impuesto);
+            obj.setTotal(total);
+            
+            List<DetalleIngreso> detalle =new ArrayList();
+            int articuloId;
+            int cantidad;
+            double precio;
+            
+            for (int i=0; i<modeloDetalles.getRowCount();i++) {
+                articuloId=Integer.parseInt(String.valueOf(modeloDetalles.getValueAt(i, 0)));
+                cantidad=Integer.parseInt(String.valueOf(modeloDetalles.getValueAt(i, 3)));
+                precio=Double.parseDouble(String.valueOf(modeloDetalles.getValueAt(i, 4)));
+                detalle.add(new DetalleIngreso(articuloId,cantidad,precio));
+            }
+            
+            obj.setDetalle(detalle);
             if (DATOS.insertar(obj)) {
                 return "OK";
             } else {
@@ -80,57 +90,16 @@ public class IngresoControl {
             
         }
     }
-    public String actualizar(int id, int categoriaId, String codigo, String nombre,String nombreAnt, double precioVenta, int stock, String descripcion, String imagen){
-        if (nombre.equals( nombreAnt)) {
-            
-            obj.setId(id);
-            obj.setCategoriaId(categoriaId);
-            obj.setCodigo(codigo);
-            obj.setNombre(nombre);
-            obj.setPrecioVenta(precioVenta);
-            obj.setStock(stock);
-            obj.setDescripcion(descripcion);
-            obj.setImagen(imagen); 
-            if (DATOS.actualizar(obj)) {
-                return "OK";
-            } else {
-                return "ERROR en el actualizacion.";
-            }
-        } else {
-            if (DATOS.existe(nombre)) {
-                return "El registro ya existe";
-            } else {
-                obj.setId(id);
-                obj.setCategoriaId(categoriaId);
-                obj.setCodigo(codigo);
-                obj.setNombre(nombre);
-                obj.setPrecioVenta(precioVenta);
-                obj.setStock(stock);
-                obj.setDescripcion(descripcion);
-                obj.setImagen(imagen);
-                if (DATOS.actualizar(obj)) {
-                    return "OK";
-                } else {
-                    return "ERROR en la actualizacion.";
-                }
-            }
-        }
-    }
-    public String desactivar(int id ){
-        if (DATOS.desactivar(id)) {
+  
+    public String anular(int id ){
+        if (DATOS.anular(id)) {
             return"OK";
         } else {
-            return "No se puede desactivar el registro.";
+            return "No se puede anular el registro.";
         }
     }
     
-     public String activar(int id ){
-         if (DATOS.activar(id)) {
-            return"OK";
-        } else {
-            return "No se puede desactivar el registro.";
-        }
-    }
+
      public int total(){
                   return DATOS.total();
      }

@@ -32,6 +32,13 @@ public class DetalleIngreso {
         this.subtotal = subtotal;
     }
 
+    public DetalleIngreso(int articuloId, int cantidad, double precio) {
+        this.articuloId = articuloId;
+        this.cantidad = cantidad;
+        this.precio = precio;
+    }
+
+    
     public int getId() {
         return id;
     }
