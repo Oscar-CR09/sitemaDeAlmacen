@@ -53,7 +53,7 @@ public class frmUsuario extends javax.swing.JInternalFrame {
     }
     
     private void paginar(){
-        int totalPaginas;
+       /* int totalPaginas;
         
         this.TotalRegistro=this.CONTROL.total();
         this.totalPorPagina=Integer.parseInt((String)cboTotalPaginas.getSelectedItem());
@@ -69,12 +69,41 @@ public class frmUsuario extends javax.swing.JInternalFrame {
             
         }
         cboNumeroPaginas.setSelectedIndex(0);
-               
+           */
+       
+        int totalPaginas;
+        
+        this.TotalRegistro = this.CONTROL.total(); // Obtiene el total de registros de la BD
+        // Asegúrate de que cboTotalPaginas.getSelectedItem() no sea null al inicio
+        // y que el valor sea un String parseable a int.
+        try {
+            this.totalPorPagina = Integer.parseInt((String)cboTotalPaginas.getSelectedItem());
+        } catch (NumberFormatException e) {
+            // Manejar el caso donde el item no es un número válido o es null
+            System.err.println("Error al parsear totalPorPagina: " + e.getMessage());
+            this.totalPorPagina = 10; // Valor por defecto si hay un error
+        }
+        
+        totalPaginas = (int)(Math.ceil((double)this.TotalRegistro / this.totalPorPagina));
+        
+        if (totalPaginas == 0) {
+            totalPaginas = 1;
+        }
+        
+        cboNumeroPaginas.removeAllItems(); // Limpia los items actuales
+        
+        for (int i = 1; i <= totalPaginas; i++) {
+            cboNumeroPaginas.addItem(Integer.toString(i));
+        }
+        // Solo establece el índice seleccionado si hay elementos
+        if (cboNumeroPaginas.getItemCount() > 0) {
+            cboNumeroPaginas.setSelectedIndex(0);
+        }
     }
             //Marca in error de parse int verificar que es lo que lo esta activando 
     private void listar(String texto, boolean paginar){
-        //this.totalPorPagina=Integer.parseInt((String)cboTotalPaginas.getSelectedItem());
-        if ((String )cboNumeroPaginas.getSelectedItem()!=null) {
+        //this.totalPorPagina=Integer.parseInt((String)cboTotalPaginas.getSelectedItem()); ANTERIOR
+       /* if ((String )cboNumeroPaginas.getSelectedItem()!=null) {
             this.numPagina=Integer.parseInt((String)cboNumeroPaginas.getSelectedItem());
         }
         if (paginar==true) {
@@ -87,7 +116,35 @@ public class frmUsuario extends javax.swing.JInternalFrame {
         tablaListado.setRowSorter(orden);
         this.ocultarColumnas();
         lblTotalRegistros.setText("Mostrando " + this.CONTROL.totalMostrados() + " de un total de " + this.CONTROL.total() + " registros");
+        */
+            try {
+            this.totalPorPagina = Integer.parseInt((String)cboTotalPaginas.getSelectedItem());
+        } catch (NumberFormatException e) {
+            System.err.println("Error al parsear totalPorPagina en listar: " + e.getMessage());
+            this.totalPorPagina = 10; // Default
+        }
+
+        // Si es la primera carga o si se está paginando
+        if (paginar || this.PrimeraCarga) {
+            // Asegúrate de que cboNumeroPaginas.getSelectedItem() no sea null
+            if (cboNumeroPaginas.getSelectedItem() != null) {
+                this.numPagina = Integer.parseInt((String)cboNumeroPaginas.getSelectedItem());
+            } else {
+                this.numPagina = 1; // Default a la primera página si no hay nada seleccionado
+            }
+        }
+        // Si paginar es false (ej. después de activar/desactivar/guardar), mantén la numPagina actual
+        // Si paginar es true (desde los controles de paginación), usa la numPagina actualizada
+
+        tablaListado.setModel(this.CONTROL.listar(texto, this.totalPorPagina, this.numPagina));
         
+        TableRowSorter orden = new TableRowSorter(tablaListado.getModel());
+        tablaListado.setRowSorter(orden);
+        this.ocultarColumnas();
+        lblTotalRegistros.setText("Mostrando " + this.CONTROL.totalMostrados() + " de un total de " + this.CONTROL.total() + " registros");
+    
+       
+       
     }
     
     private void cargarRoles(){
@@ -105,6 +162,12 @@ public class frmUsuario extends javax.swing.JInternalFrame {
         txtEmail.setText("");
         txtClave.setText("");
         this.accion="guardar";
+        
+        // Al limpiar, también recarga la paginación para asegurar que los combos estén actualizados
+        this.paginar(); 
+        this.listar("", false); // Vuelve a la primera página con la vista limpia
+   
+        
     }
     private void mensajeError(String mensaje){
         JOptionPane.showMessageDialog(this,mensaje, "Sistema",JOptionPane.ERROR_MESSAGE);
@@ -496,7 +559,7 @@ public class frmUsuario extends javax.swing.JInternalFrame {
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         // TODO add your handling code here:
-        if (txtNombre.getText().length()==0 || txtNombre.getText().length()>70) {
+       /* if (txtNombre.getText().length()==0 || txtNombre.getText().length()>70) {
             JOptionPane.showMessageDialog(this, "Debes ingresar un nombre y no debe de ser mayor a 70 caracteres, es obligatorio.", "Sistema", JOptionPane.WARNING_MESSAGE);
             txtNombre.requestFocus();
             return;
@@ -553,6 +616,82 @@ public class frmUsuario extends javax.swing.JInternalFrame {
                 this.mensajeOk("Registrado correctamente");
                 this.limpiar();
                 this.listar("",false);
+            } else {
+                this.mensajeError(resp);
+            }
+        }
+*/
+       
+       if (txtNombre.getText().length() == 0 || txtNombre.getText().length() > 70) {
+            JOptionPane.showMessageDialog(this, "Debes ingresar un nombre y no debe de ser mayor a 70 caracteres, es obligatorio.", "Sistema", JOptionPane.WARNING_MESSAGE);
+            txtNombre.requestFocus();
+            return;
+        }
+        if (txtEmail.getText().length() == 0 || txtEmail.getText().length() > 50) {
+            JOptionPane.showMessageDialog(this, "Debes ingresar un email y no debe de ser mayor de a 50 caracteres, es obligatorio.", "Sistema", JOptionPane.WARNING_MESSAGE);
+            txtEmail.requestFocus();
+            return;
+        }
+        // IMPORTANTE: Para la clave, en modo edición, si el usuario no la cambia,
+        // no debes enviarla vacía ni intentar hashear un string vacío.
+        // La lógica en UsuarioControl.actualizar ya está esperando la clave hasheada.
+        // Si txtClave está vacío en edición, puedes optar por:
+        // 1. Pasar el hash antiguo (almacenado en emailAnt o en una nueva variable).
+        // 2. Modificar UsuarioControl.actualizar para que ignore el campo clave si está vacío.
+        // Actualmente, estás enviando txtClave.getText() que será "" si no se tocó,
+        // lo que podría causar que se guarde un hash de cadena vacía o error.
+        String claveParaGuardar = new String(txtClave.getPassword()); // Obtener el texto del JPasswordField
+
+        if (this.accion.equals("guardar") && claveParaGuardar.length() == 0) { // Solo obligatorio si es un nuevo registro
+            JOptionPane.showMessageDialog(this, "Debes ingresar una clave, es obligatorio.", "Sistema", JOptionPane.WARNING_MESSAGE);
+            txtClave.requestFocus();
+            return;
+        }
+        if (txtNumDocumento.getText().length() > 20) {
+            JOptionPane.showMessageDialog(this, "Debes ingresar un numero de documento no mayor a 20 caracteres.", "Sistema", JOptionPane.WARNING_MESSAGE);
+            txtNumDocumento.requestFocus();
+            return;
+        }
+        if (txtDireccion.getText().length() > 70) {
+            JOptionPane.showMessageDialog(this, "Debes ingresar una derección no mayor de 70 caracteres.", "Sistema", JOptionPane.WARNING_MESSAGE);
+            txtDireccion.requestFocus();
+            return;
+        }
+        if (txtTelefono.getText().length() > 15) {
+            JOptionPane.showMessageDialog(this, "Debes ingresar un teléfono no mayor a 15 caracteres.", "Sistema", JOptionPane.WARNING_MESSAGE);
+            txtTelefono.requestFocus();
+            return;
+        }
+        
+        String resp;
+        Rol seleccionado = (Rol)cboRol.getSelectedItem();
+
+        if (this.accion.equals("editar")) {
+            // Asegúrate de que tu UsuarioControl.actualizar tenga el parámetro extra para emailAnt
+            // El problema aquí es que sobrescribías resp="OK" antes de la llamada a CONTROL.actualizar
+            resp = this.CONTROL.actualizar(Integer.parseInt(txtId.getText()), seleccionado.getId(), txtNombre.getText(), (String)cboTipoDocumento.getSelectedItem(), txtNumDocumento.getText(), txtDireccion.getText(), txtTelefono.getText(), txtEmail.getText(), this.emailAnt, claveParaGuardar);
+            
+            if (resp.equals("OK")) {
+                this.mensajeOk("Actualizado correctamente");
+                this.limpiar();
+                this.listar("", false); // Recargar la tabla en la página actual
+                tabGeneral.setSelectedIndex(0);
+                tabGeneral.setEnabledAt(1, false);
+                tabGeneral.setEnabledAt(0, true);
+            } else {
+                this.mensajeError(resp);
+            }
+        } else { // Guardar (nuevo registro)
+            // El problema aquí es que sobrescribías resp="OK" antes de la llamada a CONTROL.insertar
+            resp = this.CONTROL.insertar(seleccionado.getId(), txtNombre.getText(), (String)cboTipoDocumento.getSelectedItem(), txtNumDocumento.getText(), txtDireccion.getText(), txtTelefono.getText(), txtEmail.getText(), claveParaGuardar);
+            
+            if (resp.equals("OK")) {
+                this.mensajeOk("Registrado correctamente");
+                this.limpiar();
+                this.listar("", false); // Recargar la tabla en la página actual
+                tabGeneral.setSelectedIndex(0); // Volver a la pestaña de listado
+                tabGeneral.setEnabledAt(1, false); // Deshabilitar la pestaña de mantenimiento
+                tabGeneral.setEnabledAt(0, true); // Habilitar la pestaña de listado
             } else {
                 this.mensajeError(resp);
             }
@@ -650,6 +789,10 @@ public class frmUsuario extends javax.swing.JInternalFrame {
     private void cboTotalPaginasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboTotalPaginasActionPerformed
         // TODO add your handling code here:
         //this.paginar();
+         if (this.PrimeraCarga == false) { // Asegúrate de que no se ejecute en la carga inicial
+            this.paginar(); // Recalcula el número de páginas y rellena cboNumeroPaginas
+            this.listar("", false); // Recarga la lista desde la página 1 con el nuevo totalPorPagina
+        }
     }//GEN-LAST:event_cboTotalPaginasActionPerformed
 
 

@@ -707,9 +707,9 @@ public class frmIngreso extends javax.swing.JInternalFrame {
     private javax.swing.JTextField txtBuscar;
     private javax.swing.JTextField txtCodigo;
     private javax.swing.JTextField txtComprobante;
-    private javax.swing.JTextField txtIdProveedor;
+    public javax.swing.JTextField txtIdProveedor;
     private javax.swing.JTextField txtImouesto;
-    private javax.swing.JTextField txtNombreProveedor;
+    public javax.swing.JTextField txtNombreProveedor;
     private javax.swing.JTextField txtNumeroComprobante;
     private javax.swing.JTextField txtSubTotal;
     private javax.swing.JTextField txtTotal;

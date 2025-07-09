@@ -20,6 +20,7 @@ public class Usuario {
     private String email;
     private String clave;
     private boolean activo;
+    private Object estado;
 
     public Usuario() {
     }
@@ -142,7 +143,10 @@ public class Usuario {
     }
 
     public boolean isActivo() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+         // Ejemplo: Si tienes una columna de estado 'estado' en tu tabla de usuario
+      // y quieres que sea activo si el estado es 'ACTIVO'
+    return "ACTIVO".equals(this.estado); // Suponiendo un atributo 'estado' String
+
     }
     
     

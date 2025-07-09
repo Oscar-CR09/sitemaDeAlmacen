@@ -422,11 +422,17 @@
               <Properties>
                 <Property name="editable" type="boolean" value="false"/>
               </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
+              </AuxValues>
             </Component>
             <Component class="javax.swing.JTextField" name="txtNombreProveedor">
               <Properties>
                 <Property name="editable" type="boolean" value="false"/>
               </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
+              </AuxValues>
             </Component>
             <Component class="javax.swing.JButton" name="btnSeleccionarProveedor">
               <Properties>

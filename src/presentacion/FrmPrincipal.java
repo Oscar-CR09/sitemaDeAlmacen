@@ -280,9 +280,11 @@ public class FrmPrincipal extends javax.swing.JFrame {
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
        
         // TODO add your handling code here:
+        
         frmIngreso frm =new frmIngreso(this);
         escritorio.add(frm);
         frm.setVisible(true);
+         
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     /**

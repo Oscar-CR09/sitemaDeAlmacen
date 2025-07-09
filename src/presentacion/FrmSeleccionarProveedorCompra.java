@@ -128,6 +128,7 @@ public class FrmSeleccionarProveedorCompra extends javax.swing.JFrame {
         cboTotalPaginas = new javax.swing.JComboBox<>();
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
+        btnSeleccionarProveedor = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         txtNombre = new javax.swing.JTextField();
@@ -220,6 +221,13 @@ public class FrmSeleccionarProveedorCompra extends javax.swing.JFrame {
 
         jLabel11.setText("Total de Registros por Paginas");
 
+        btnSeleccionarProveedor.setText("Seleccionar");
+        btnSeleccionarProveedor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSeleccionarProveedorActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -229,39 +237,39 @@ public class FrmSeleccionarProveedorCompra extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1)
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel10)
+                                .addGap(76, 76, 76)
+                                .addComponent(cboNumeroPaginas, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(btnDesactivar)
+                                .addGap(70, 70, 70)
+                                .addComponent(btnActivar)))
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addGap(18, 18, 18)
-                                .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(btnBuscar)
-                                .addGap(18, 18, 18)
-                                .addComponent(btnNuevo)
-                                .addGap(18, 18, 18)
-                                .addComponent(btnEditar)
-                                .addGap(0, 0, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(lblTotalRegistros, javax.swing.GroupLayout.PREFERRED_SIZE, 384, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jLabel10)
-                                        .addGap(76, 76, 76)
-                                        .addComponent(cboNumeroPaginas, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                                        .addComponent(btnDesactivar)
-                                        .addGap(70, 70, 70)
-                                        .addComponent(btnActivar)))
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(lblTotalRegistros, javax.swing.GroupLayout.PREFERRED_SIZE, 384, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGap(215, 215, 215)
-                                        .addComponent(jLabel11)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(cboTotalPaginas, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(0, 0, Short.MAX_VALUE)))))
-                        .addContainerGap())))
+                                .addGap(215, 215, 215)
+                                .addComponent(jLabel11)
+                                .addGap(18, 18, 18)
+                                .addComponent(cboTotalPaginas, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 217, Short.MAX_VALUE)))
+                        .addContainerGap())
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(18, 18, 18)
+                        .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnBuscar)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnNuevo)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnEditar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnSeleccionarProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(32, 32, 32))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -272,7 +280,8 @@ public class FrmSeleccionarProveedorCompra extends javax.swing.JFrame {
                     .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnBuscar)
                     .addComponent(btnNuevo)
-                    .addComponent(btnEditar))
+                    .addComponent(btnEditar)
+                    .addComponent(btnSeleccionarProveedor))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 427, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -419,7 +428,7 @@ public class FrmSeleccionarProveedorCompra extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(tabGeneral, javax.swing.GroupLayout.DEFAULT_SIZE, 953, Short.MAX_VALUE)
+                .addComponent(tabGeneral)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -605,6 +614,21 @@ public class FrmSeleccionarProveedorCompra extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtIdActionPerformed
 
+    private void btnSeleccionarProveedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionarProveedorActionPerformed
+        if (tablaListado.getSelectedRowCount()==1) {
+            String id=String.valueOf(tablaListado.getValueAt(tablaListado.getSelectedRow(), 0));
+            String nombre=String.valueOf(tablaListado.getValueAt(tablaListado.getSelectedRow(), 2));
+            
+            this.vista.txtIdProveedor.setText(id);
+            this.vista.txtNombreProveedor.setText(nombre);
+            this.setVisible(false);           
+      
+        } else {
+            this.mensajeError("Debe seleccionar un proveedor");
+        }
+        
+    }//GEN-LAST:event_btnSeleccionarProveedorActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -618,6 +642,7 @@ public class FrmSeleccionarProveedorCompra extends javax.swing.JFrame {
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnNuevo;
+    private javax.swing.JButton btnSeleccionarProveedor;
     private javax.swing.JComboBox<String> cboNumeroPaginas;
     private javax.swing.JComboBox<String> cboTipoDocumento;
     private javax.swing.JComboBox<String> cboTotalPaginas;

@@ -39,10 +39,11 @@ public class UsuarioControl {
         String[ ] titulos={"Id","Rol ID","Rol","Usuario","Documento","# Documento","Dirección","Teléfono","Email","Clave","Estado"};
         this.modeloTabla = new DefaultTableModel(null,titulos);
         
-        String estado;
+       
         String[] registro = new String[11];
         
-        this.registrosMostrados=0;
+       // this.registrosMostrados=0;
+         String estado;
         for (Usuario item:lista) {
             if (item.isActivo()) {
                 estado="Activo";
